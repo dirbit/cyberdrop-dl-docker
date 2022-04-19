@@ -8,7 +8,7 @@ ARG GID=1000
 
 WORKDIR /app
 
-ENV PIP_NO_CACHE_DIR off
+ENV PIP_NO_CACHE_DIR=1
 
 RUN addgroup -g ${GID} ${USER} && \
     adduser -u ${UID} -G ${USER} -D ${USER} && \
