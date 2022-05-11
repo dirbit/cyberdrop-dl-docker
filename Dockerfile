@@ -1,6 +1,6 @@
 FROM python:3.9-alpine
 
-ENV VERSION 2.19.6
+ENV VERSION 2.20.5
 
 ARG USER=user
 ARG UID=1000
