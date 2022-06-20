@@ -1,6 +1,7 @@
 FROM python:3.10-alpine
 
 ENV VERSION 2.26.4
+
 ENV APP_DIR="/app" PUID="1000" PGID="1000" UMASK="022"
 
 RUN apk add --no-cache setpriv
