@@ -1,20 +1,16 @@
-FROM python:3.9-alpine
+FROM python:3.10-alpine
 
 ENV VERSION 2.26.4
+ENV APP_DIR="/app" PUID="1000" PGID="1000" UMASK="022"
 
-ARG USER=user
-ARG UID=1000
-ARG GID=1000
+RUN apk add --no-cache setpriv
 
-WORKDIR /app
+RUN python3 -m pip install --no-cache-dir --upgrade pip && \
+    python3 -m pip install --no-cache-dir cyberdrop-dl==${VERSION}
 
-ENV PIP_NO_CACHE_DIR=1
+WORKDIR ${APP_DIR}
 
-RUN addgroup -g ${GID} ${USER} && \
-    adduser -u ${UID} -G ${USER} -D ${USER} && \
-    chmod -R 777 /app && \
-    python3 -m pip install cyberdrop-dl==${VERSION}
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 
-USER ${USER}
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
-ENTRYPOINT [ "cyberdrop-dl" ]
